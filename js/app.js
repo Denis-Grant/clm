@@ -6,7 +6,7 @@ navBar.addEventListener('click', ()=>{
     toggleMenu();
 });
 menu.addEventListener('click', (e)=>{
-    if (e.target.textContent === 'Search by Name') {
+    if (e.target.textContent === 'SEARCH - Name') {
         toggleMenu()
         searchByName();
     }
