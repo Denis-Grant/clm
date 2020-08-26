@@ -1,0 +1,107 @@
+@import url('vendor/normalize.css');
+@import url('vendor/skeleton.css');
+* {
+    // margin: 0 !important;
+    // padding: 0;
+    box-sizing: border-box;
+    // border: 1px dotted lightblue;
+}
+$green: #49A397;
+$dark-blue: #082A56;
+$blue: #0A2850;
+$gray: #404247;
+$orange: #AC6C22;
+$red: #5C0B1D;
+$lighter-blue: #103079;
+body {
+    font-family: 'Lato', sans-serif;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+header {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    .left {
+        background-color: $green;
+        color: $dark-blue;
+        padding: 10px 10px;
+
+        .left-wrapper {
+            text-align: center;
+            border-left: 3px solid $dark-blue;
+            border-right: 3px solid $dark-blue;
+            h1 {
+                font-size: 22px;
+                margin-bottom: 5px;
+                font-weight: bold;
+                padding: 0 
+            }
+            h5 {
+                margin-bottom: 5px;
+            }
+        }
+    }
+    .right {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        background-color: $dark-blue;
+        color: #fff;
+        h5 {
+            margin-bottom: 5px;
+        }
+    }
+}
+main {
+    position: relative;
+    .title {
+        font-size: 17px;
+        text-align: center;
+        margin: 5px 0 0 0;
+        padding: 5px 0;
+        background-color: $dark-blue;
+        color: #fff;
+        word-spacing: 3px;
+    }
+    nav {
+
+        .fa-bars {
+            margin-left: 100%;
+            color: $dark-blue;
+            padding-top: 10px;
+            cursor: pointer;
+        }
+      
+    }
+}
+
+.main-wrapper {
+    position: relative;
+    height: calc(100vh - 115px);
+}
+#menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: #e4e4e4;
+    color: $blue;
+    padding: 20px;
+    width: 160px;
+    transform: translateX(-160px);
+    transition: transform 200ms ease-in;
+    li {
+        cursor: pointer;
+        &:hover {
+            background-color: $dark-blue;
+            color: #fff;
+            padding: 0 5px;
+            transition: background-color 200ms ease-in-out;
+        }
+    }
+}
+.show-menu {
+    transform: translateX(0);
+}
