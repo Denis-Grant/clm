@@ -77,9 +77,10 @@ main .title {
 }
 
 main nav .fa-bars {
-  margin-left: 100%;
+  margin-left: 96%;
   color: #082A56;
   padding-top: 10px;
+  padding-right: 10px;
   cursor: pointer;
 }
 
