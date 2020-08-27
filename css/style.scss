@@ -21,6 +21,10 @@ body {
         margin: 0;
         padding: 0;
     }
+    a {
+        color: $blue;
+        text-decoration: none;
+    }
 }
 header {
     display: grid;
