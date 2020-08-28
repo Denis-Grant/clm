@@ -6,12 +6,21 @@ const publisherName = document.querySelector('.publisher-name');
 const metaData = document.querySelector('.meta-data');
 const main = document.querySelector('main');
 const collection = [];
+let myAssignment ='Grant';
+const user = document.querySelector('.fa-user');
+
 searchBtn.addEventListener('click', ()=>{
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
         getItems(searchInput.value.trim()) 
     }
+});
+user.addEventListener('click', ()=>{
+    searchInput.value = 'Grant';
+    getItems(searchInput.value.trim())
 
 });
+
+
 // navBar.addEventListener('click', ()=>{
 //     toggleMenu();
 // });
@@ -68,7 +77,7 @@ function getItems(name){
                 // `<div class="week">${data.feed.entry[1].content.$t}</div><div class="publisher-name">${searchInput.value.trim()}</div></br>`
                 main.innerHTML += 
                 `<div class="assignment-wrapper"><div class="assignments">
-                <img src="/img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
+                <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
                 <p>${meetingPart(pub.title.$t).part}</p>
                 <p>“Reflect Jehovah’s View of Life”: (10 min.)</p>
                 </div></div>`;
@@ -113,6 +122,12 @@ function meetingPart(item){
         case 'V18': itemPart = 'RV Video'
                 icon='apply-img.png'
         break;
+        case 'V19': itemPart = 'Student Assignment'
+                icon='apply-img.png'
+        break;
+        case 'V30': itemPart = ''
+                icon='living-img.png'
+        break;
         case 'V31': itemPart = 'CBS Conductor'
                 icon='living-img.png'
         break;
@@ -124,6 +139,9 @@ function meetingPart(item){
         break;
         case 'V41': itemPart = 'Away Speaker'
                 icon='public-img.png'
+        break;
+        case 'V48': itemPart = 'Watchtower Reader'
+                icon='watchtower-img.png'
         break;
         case 'S58': itemPart = 'Media Player'
                 icon='weekly-img.png'
