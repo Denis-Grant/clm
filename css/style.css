@@ -90,10 +90,6 @@ main #date {
   display: inline-block;
 }
 
-main .assignment-wrapper {
-  margin-top: 28px;
-}
-
 main #assignments {
   display: -ms-grid;
   display: grid;
@@ -140,7 +136,7 @@ footer {
 .footer-grid .fa {
   display: inline-block;
   padding: 10px;
-  font-size: 35px;
+  font-size: 32px;
   color: #fff;
   cursor: pointer;
 }
