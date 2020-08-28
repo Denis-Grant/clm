@@ -85,7 +85,7 @@ function getItems(name){
             });
         });
     }
-
+    // main.innerHTML += '</br></br>'
 
 }
 function meetingPart(item){
@@ -125,7 +125,13 @@ function meetingPart(item){
         case 'V19': itemPart = 'Student Assignment'
                 icon='apply-img.png'
         break;
+        case 'V21': itemPart = 'Student Assignment'
+                icon='apply-img.png'
+        break;
         case 'V30': itemPart = ''
+                icon='living-img.png'
+        break;
+        case 'V29': itemPart = ''
                 icon='living-img.png'
         break;
         case 'V31': itemPart = 'CBS Conductor'
@@ -144,6 +150,9 @@ function meetingPart(item){
                 icon='watchtower-img.png'
         break;
         case 'S58': itemPart = 'Media Player'
+                icon='weekly-img.png'
+        break;
+        case 'O58': itemPart = 'Mute/Unmute'
                 icon='weekly-img.png'
         break;
         default: itemPart = 'Missing Item'
