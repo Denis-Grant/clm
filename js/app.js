@@ -1,16 +1,16 @@
 const navBar = document.querySelector('.fa-bars');
 const menu = document.querySelector('#menu');
-const menuList = menu.children;
+// const menuList = menu.children;
 
-navBar.addEventListener('click', ()=>{
-    toggleMenu();
-});
-menu.addEventListener('click', (e)=>{
-    if (e.target.textContent === 'SEARCH - Name') {
-        toggleMenu()
-        searchByName();
-    }
-});
+// navBar.addEventListener('click', ()=>{
+//     toggleMenu();
+// });
+// menu.addEventListener('click', (e)=>{
+//     if (e.target.textContent === 'SEARCH - Name') {
+//         toggleMenu()
+//         searchByName();
+//     }
+// });
 
 function toggleMenu(){
     menu.getAttribute('style') === null ? menu.style.transform = 'translateX(0)' : menu.removeAttribute('style')
