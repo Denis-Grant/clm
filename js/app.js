@@ -68,7 +68,7 @@ function getItems(name){
                 // `<div class="week">${data.feed.entry[1].content.$t}</div><div class="publisher-name">${searchInput.value.trim()}</div></br>`
                 main.innerHTML += 
                 `<div class="assignment-wrapper"><div class="assignments">
-                <img src="/img/${meetingPart(pub.title.$t).i}" alt="">
+                <img src="/img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
                 <p>${meetingPart(pub.title.$t).part}</p>
                 <p>“Reflect Jehovah’s View of Life”: (10 min.)</p>
                 </div></div>`;
