@@ -76,16 +76,22 @@ header {
 }main {
    padding-top: 169px; // offset fixed pos
    z-index: 10;
-   #date {
-       padding: 0 10px;
-       background-color: gray;
-       color: #fff;
-       display: inline-block
+   .meta-data {
+        display: flex; 
+        justify-content: space-between;
+        background-color: gray;
+        color: #fff;
+        padding: 0 10px;  
+        #week {
+        }
+        #publisher-name {
+
+        }
    }
    .assignment-wrapper {
     //    margin-top: 28px;
    }
-   #assignments {
+   .assignments {
        display: grid;
        grid-template-columns: 1fr 2fr 4fr;
        align-items: center;

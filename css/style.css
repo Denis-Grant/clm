@@ -83,14 +83,19 @@ main {
   z-index: 10;
 }
 
-main #date {
-  padding: 0 10px;
+main .meta-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   background-color: gray;
   color: #fff;
-  display: inline-block;
+  padding: 0 10px;
 }
 
-main #assignments {
+main .assignments {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 2fr 4fr;
@@ -105,12 +110,12 @@ main #assignments {
   padding: 4px 10px;
 }
 
-main #assignments img {
+main .assignments img {
   border-radius: 60%;
   width: 40px;
 }
 
-main #assignments p {
+main .assignments p {
   margin: 0;
   padding: 0 20px;
 }
