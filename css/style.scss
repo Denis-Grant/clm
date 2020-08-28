@@ -8,13 +8,14 @@
 }
 $green: #49A397;
 $dark-blue: #082A56;
-$blue: #0A2850;
+$blue: #005FDD;
+// $blue: #0A2850;
 $gray: #404247;
 $orange: #AC6C22;
 $red: #5C0B1D;
 $lighter-blue: #103079;
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: Roboto, 'Lato', sans-serif;
     // background-color:#dedede;
     ul {
         list-style-type: none;
@@ -28,86 +29,21 @@ body {
 }
 header {
     display: grid;
-    grid-template-columns: 2fr 3fr;
-    .left {
-        background-color: $green;
-        color: $dark-blue;
-        padding: 10px 10px;
-
-        .left-wrapper {
-            text-align: center;
-            border-left: 3px solid $dark-blue;
-            border-right: 3px solid $dark-blue;
-            h1 {
-                font-size: 22px;
-                margin-bottom: 5px;
-                font-weight: bold;
-                padding: 0 
-            }
-            h5 {
-                margin-bottom: 5px;
-            }
-        }
-    }
-    .right {
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        background-color: $dark-blue;
-        color: #fff;
-        h5 {
-            margin-bottom: 5px;
-        }
-    }
-}
-main {
-    position: relative;
+    justify-content: center;
+    background-color: $blue;
+    color: #fff;
+    padding: 10px 10px 20px 10px;
     .title {
-        font-size: 17px;
+        font-size: 2rem;
         text-align: center;
-        margin: 5px 0 0 0;
-        padding: 5px 0;
-        background-color: $dark-blue;
-        color: #fff;
-        word-spacing: 3px;
     }
-    nav {
-
-        .fa-bars {
-            margin-left: 96%;
-            color: $dark-blue;
-            padding-top: 10px;
-            padding-right: 10px;
-            cursor: pointer;
-        }
-      
+    .main-heading {
+        font-size: 3rem;
     }
-}
-
-.main-wrapper {
-    position: relative;
-    height: calc(100vh - 115px);
-}
-#menu {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    background-color: #e4e4e4;
-    color: $blue;
-    padding: 20px;
-    width: 160px;
-    transform: translateX(-160px);
-    transition: transform 200ms ease-in;
-    li {
-        cursor: pointer;
-        &:hover {
-            background-color: $dark-blue;
-            color: #fff;
-            padding: 0 5px;
-            transition: background-color 200ms ease-in-out;
-        }
+    #search {
+        width: 100%;
+        margin-bottom: 0;
+        color: $dark-blue;
+        border: #fff;
     }
-}
-.show-menu {
-    transform: translateX(0);
 }

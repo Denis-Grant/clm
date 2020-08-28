@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: Roboto, 'Lato', sans-serif;
 }
 
 body ul {
@@ -16,114 +16,34 @@ body ul {
 }
 
 body a {
-  color: #0A2850;
+  color: #005FDD;
   text-decoration: none;
 }
 
 header {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 3fr;
-      grid-template-columns: 2fr 3fr;
-}
-
-header .left {
-  background-color: #49A397;
-  color: #082A56;
-  padding: 10px 10px;
-}
-
-header .left .left-wrapper {
-  text-align: center;
-  border-left: 3px solid #082A56;
-  border-right: 3px solid #082A56;
-}
-
-header .left .left-wrapper h1 {
-  font-size: 22px;
-  margin-bottom: 5px;
-  font-weight: bold;
-  padding: 0;
-}
-
-header .left .left-wrapper h5 {
-  margin-bottom: 5px;
-}
-
-header .right {
-  display: -ms-grid;
-  display: grid;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #082A56;
+  background-color: #005FDD;
   color: #fff;
+  padding: 10px 10px 20px 10px;
 }
 
-header .right h5 {
-  margin-bottom: 5px;
-}
-
-main {
-  position: relative;
-}
-
-main .title {
-  font-size: 17px;
+header .title {
+  font-size: 2rem;
   text-align: center;
-  margin: 5px 0 0 0;
-  padding: 5px 0;
-  background-color: #082A56;
-  color: #fff;
-  word-spacing: 3px;
 }
 
-main nav .fa-bars {
-  margin-left: 96%;
+header .main-heading {
+  font-size: 3rem;
+}
+
+header #search {
+  width: 100%;
+  margin-bottom: 0;
   color: #082A56;
-  padding-top: 10px;
-  padding-right: 10px;
-  cursor: pointer;
-}
-
-.main-wrapper {
-  position: relative;
-  height: calc(100vh - 115px);
-}
-
-#menu {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background-color: #e4e4e4;
-  color: #0A2850;
-  padding: 20px;
-  width: 160px;
-  -webkit-transform: translateX(-160px);
-          transform: translateX(-160px);
-  -webkit-transition: -webkit-transform 200ms ease-in;
-  transition: -webkit-transform 200ms ease-in;
-  transition: transform 200ms ease-in;
-  transition: transform 200ms ease-in, -webkit-transform 200ms ease-in;
-}
-
-#menu li {
-  cursor: pointer;
-}
-
-#menu li:hover {
-  background-color: #082A56;
-  color: #fff;
-  padding: 0 5px;
-  -webkit-transition: background-color 200ms ease-in-out;
-  transition: background-color 200ms ease-in-out;
-}
-
-.show-menu {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
+  border: #fff;
 }
 /*# sourceMappingURL=style.css.map */

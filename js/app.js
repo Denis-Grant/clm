@@ -25,11 +25,11 @@ function searchByName(){
         })
     })
 }
-fetch('https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/13/public/full?alt=json').then(resp => resp.json()).then((data) => {
-    // console.log(data.feed.title.$t)
-    // console.log(data.feed.entry[1].content.$t)
+fetch('https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/9/public/full?alt=json').then(resp => resp.json()).then((data) => {
+    console.log(data.feed.title.$t)
+    console.log(data.feed.entry[1].content.$t)
     data.feed.entry.forEach(pub => {
-        // pub.content.$t.includes('Neal')  ? console.log(pub.content.$t, meetingPart(pub.title.$t)) : pub.content.$t;
+        pub.content.$t.includes('Neal')  ? console.log(pub.content.$t, meetingPart(pub.title.$t)) : pub.content.$t;
     });
 });
 
