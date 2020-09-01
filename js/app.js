@@ -5,6 +5,7 @@ const week = document.querySelector('.week');
 const publisherName = document.querySelector('.publisher-name');
 const metaData = document.querySelector('.meta-data');
 const main = document.querySelector('main');
+const searchWrap = document.querySelector('.search-wrap');
 let weekArr = [];
 let rows= [];
 let x;
@@ -14,8 +15,14 @@ const user = document.querySelector('.fa-user');
 let dataArray;
 let itemStr;
 
-
-
+window.addEventListener('scroll',()=>{
+    if (window.pageYOffset > 100) {
+        searchWrap.classList.add('header-offset')
+    } else {
+        searchWrap.classList.remove('header-offset')
+    }      
+})
+let y = window.pageYOffset;
 async function initialize(publisherName){
     main.innerHTML = '';
     let weekNum = 1;
@@ -26,14 +33,12 @@ async function initialize(publisherName){
          dataArray = Array.of(data);
         main.innerHTML += 
             `<div class="meta-data"><div class="week">${data.feed.entry[1].content.$t}</div><div>Week ${weekNum++}</div>`
-            // <div class="publisher-name">${searchInput.value.trim()}</div> removed from line above
         
         // Display items
         data.feed.entry.forEach(pub => {
             if (pub.content.$t.includes(publisherName)){                
                 dataArray[0].feed.entry.forEach((i)=>{
                     if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
-                        // console.log('C'+ pub.title.$t.substring(1),i.content.$t);
                         itemStr =  i.content.$t;
                     } 
                      item = 'C'+ pub.title.$t.substring(1);
@@ -42,7 +47,7 @@ async function initialize(publisherName){
                         case 'C34' : 
                         case 'C58' : 
                         case 'C40' : 
-                        case 'C41' : 
+                        case 'C41' : 9
                         case 'C7' : itemStr = '';
                         break
                       
@@ -63,13 +68,13 @@ async function initialize(publisherName){
             }
         });
     }
+    main.innerHTML += `<div class='blank-space'></div>`
+    // main.innerHTML += `<div class='blank-space></div>`
 }
 // initialize();
 searchBtn.addEventListener('click', ()=>{
     searchInput.select();
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
-        // getItems(searchInput.value.trim()) 
-        // getWeeks(searchInput.value.trim())
         initialize(searchInput.value.trim());
     }
     
@@ -81,16 +86,6 @@ user.addEventListener('click', ()=>{
 
 });
 
-
-// navBar.addEventListener('click', ()=>{
-//     toggleMenu();
-// });
-// menu.addEventListener('click', (e)=>{
-//     if (e.target.textContent === 'SEARCH - Name') {
-//         toggleMenu()
-//         searchByName();
-//     }
-// });
 
 function toggleMenu(){
     menu.getAttribute('style') === null ? menu.style.transform = 'translateX(0)' : menu.removeAttribute('style');
@@ -106,19 +101,6 @@ function searchByName(name){
     })
 }
 
-// function scanWeeks(){
-//     fetch('https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/5/public/full?alt=json').
-//     then(resp => resp.json()).
-//     then((data) => {
-//     console.log(data.feed.title.$t)
-//     // console.log(data.feed.entry[1].content.$t)
-//     week.textContent = data.feed.entry[1].content.$t;
-//     let weekStart = 
-//     data.feed.entry.forEach(pub => {
-       
-//     }); 
-// }); 
-// }
 function getWeeks(name){
     for (let i = 5; i < 10; i++){
         // Retrieve weeks data

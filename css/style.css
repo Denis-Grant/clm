@@ -21,9 +21,12 @@ body a {
   text-decoration: none;
 }
 
+body h1 {
+  margin-bottom: 0;
+}
+
 header {
   z-index: 5;
-  position: fixed;
   width: 100%;
   display: -ms-grid;
   display: grid;
@@ -32,7 +35,7 @@ header {
           justify-content: center;
   background-color: #5C0B1D;
   color: #fff;
-  padding: 10px 10px 20px 10px;
+  padding: 10px 0 20px 0;
   text-align: center;
 }
 
@@ -45,42 +48,7 @@ header .main-heading {
   letter-spacing: 1.5px;
 }
 
-header .search-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 38px;
-}
-
-header .search-wrapper #search {
-  width: 100%;
-  margin-bottom: 0;
-  color: white;
-  background-color: #741B2F;
-  border: #fff;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  height: 100%;
-}
-
-header .search-wrapper .fa-search {
-  font-size: 25px;
-  color: white;
-  background-color: #741B2F;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  height: 100%;
-  padding-right: 8px;
-  padding-top: 6px;
-  cursor: pointer;
-}
-
 main {
-  font-weight: bold;
-  padding-top: 169px;
   z-index: 10;
 }
 
@@ -97,7 +65,6 @@ main .meta-data {
 }
 
 main .assignments {
-  font-weight: bold;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 2fr 4fr;
@@ -145,6 +112,58 @@ footer {
   padding: 10px;
   font-size: 32px;
   color: #fff;
+  cursor: pointer;
+}
+
+.blank-space {
+  height: 80px;
+}
+
+.header-offset {
+  position: fixed;
+  height: 64px;
+}
+
+.search-wrapper {
+  width: 100%;
+  background-color: #5C0B1D;
+  height: 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 38px;
+}
+
+.search-wrapper #search {
+  height: 38px;
+  width: 200px;
+  margin-bottom: 0;
+  color: white;
+  background-color: #741B2F;
+  border: #fff;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 100%;
+  margin-bottom: 30px;
+}
+
+.search-wrapper .fa-search {
+  height: 38px;
+  margin-bottom: 30px;
+  font-size: 25px;
+  color: white;
+  background-color: #741B2F;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  height: 100%;
+  padding-right: 8px;
+  padding-top: 6px;
   cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
