@@ -79,6 +79,7 @@ header .search-wrapper .fa-search {
 }
 
 main {
+  font-weight: bold;
   padding-top: 169px;
   z-index: 10;
 }
@@ -96,6 +97,7 @@ main .meta-data {
 }
 
 main .assignments {
+  font-weight: bold;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 2fr 4fr;

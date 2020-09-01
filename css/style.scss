@@ -74,6 +74,7 @@ header {
         }
     }
 }main {
+    font-weight: bold;
    padding-top: 169px; // offset fixed pos
    z-index: 10;
    .meta-data {
@@ -92,6 +93,7 @@ header {
     //    margin-top: 28px;
    }
    .assignments {
+       font-weight: bold;
        display: grid;
        grid-template-columns: 1fr 2fr 4fr;
        align-items: center;
