@@ -11,58 +11,73 @@ let x;
 let counter = 0;
 let myAssignment ='Grant';
 const user = document.querySelector('.fa-user');
-let data;
+let dataArray;
+let itemStr;
 
 
-async function initialize(){
-    searchInput.value = 'Neal'
-    let treasureItem;
+
+async function initialize(publisherName){
+    main.innerHTML = '';
+    let weekNum = 1;
+    let item;
     for (let i = 5; i < 10; i++){ 
         data = await ( await fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`)).json();
         // Display week dates
-        let dataArray = Array.of(data.feed);
+         dataArray = Array.of(data);
         main.innerHTML += 
-            `<div class="meta-data"><div class="week">${data.feed.entry[1].content.$t}</div><div class="publisher-name">${searchInput.value.trim()}</div></div>`
+            `<div class="meta-data"><div class="week">${data.feed.entry[1].content.$t}</div><div>Week ${weekNum++}</div>`
+            // <div class="publisher-name">${searchInput.value.trim()}</div> removed from line above
         
         // Display items
         data.feed.entry.forEach(pub => {
-            if (pub.content.$t.includes(searchInput.value.trim())){                
-                if (pub.title.$t === 'V12') {
-                    
-                 treasureItem = dataArray[0].entry[17].content.$t;    
-                    console.log('V12', treasureItem)    
-                } else {
-                    treasureItem = '';
-                }
+            if (pub.content.$t.includes(publisherName)){                
+                dataArray[0].feed.entry.forEach((i)=>{
+                    if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
+                        // console.log('C'+ pub.title.$t.substring(1),i.content.$t);
+                        itemStr =  i.content.$t;
+                    } 
+                     item = 'C'+ pub.title.$t.substring(1);
+                    switch(item){
+                        case 'C5' : 
+                        case 'C34' : 
+                        case 'C58' : 
+                        case 'C40' : 
+                        case 'C41' : 
+                        case 'C7' : itemStr = '';
+                        break
+                      
+                        default:
+                            itemStr;
+                        break
+                    }
+                })
+                 
                 main.innerHTML += 
-                `<div class="assignment-wrapper"><div class="assignments">
-                <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
-                <p>${meetingPart(pub.title.$t).part}</p><p>${treasureItem}</p></div></div>`
-            
-                //     document.querySelector('.assignments').innerHTML += `<p>${pub.title.$t}</p></div></div>`
-                // } else {
-                //     document.querySelector('.assignments').innerHTML += '</div></div>';
-                
-
-                
+                `<div class="assignment-wrapper">
+                    <div class="assignments">
+                        <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
+                        <p>${meetingPart(pub.title.$t).part}</p>
+                        <p>${itemStr}</p>
+                    </div>
+                </div>`    
             }
         });
     }
 }
-initialize();
+// initialize();
 searchBtn.addEventListener('click', ()=>{
-    
+    searchInput.select();
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
         // getItems(searchInput.value.trim()) 
-        getWeeks(searchInput.value.trim())
-
+        // getWeeks(searchInput.value.trim())
+        initialize(searchInput.value.trim());
     }
     
 });
 
 user.addEventListener('click', ()=>{
     searchInput.value = 'Grant';
-    getItems(searchInput.value.trim())
+    initialize(searchInput.value.trim());
 
 });
 
@@ -215,93 +230,98 @@ function meetingPart(item){
     switch(item){
         case    'A58': itemPart = 'Host';
                 icon = 'weekly-img.png'
-                title =''
+                title =109
         break;
         case    'G58': itemPart = 'Attendant';
                 icon = 'weekly-img.png'
-                title =''
+                title = 109
         break;
         case    'K58': itemPart = 'Spotlight';
                 icon = 'weekly-img.png'
-                title =''
+                title = 109
         break;
         case    'Q14': itemPart = 'Bible Reading (Urdu)';
                 icon = 'treasures-img.png'
-                title =''
+                title = 109
         break;
         case 'V5': itemPart = 'Chairman'
                 icon = 'profile.png'
-                title =''
+                title = 109
         break;
         case 'V7': itemPart = 'Opening Prayer'
-                icon='pray.jpg'
-                title =''
+                icon='praying.jpeg'
+                title = 109
         break;
         case 'V12': itemPart = 'Treasures Talk'
                 icon='treasures-img.png'
-                title = 19
+                title = 'C12'
         break;
         case 'V13': itemPart = 'Digging for Spiritual Gems'
                 icon='treasures-img.png'
-                title =''
+                title = 109
         break;
-        case 'V14': itemPart = 'Bible Reading'
+        case 'V14': itemPart = 'Student'
                 icon='treasures-img.png'
-                title =''
+                title =23
         break;
-        case 'V18': itemPart = 'RV Video'
+        case 'V18': itemPart = 'Apply'
                 icon='apply-img.png'
-                title =''
+                title = 109
         break;
-        case 'V19': itemPart = 'Student Assignment'
+        case 'V19': itemPart = 'Student'
                 icon='apply-img.png'
-                title =''
+                title =109
         break;
-        case 'V21': itemPart = 'Student Assignment'
+        case 'V21': itemPart = 'Student'
                 icon='apply-img.png'
-                title =''
+                title =109
         break;
-        case 'V30': itemPart = ''
-                icon='living-img.png'
-                title =''
+        case 'V23': itemPart = 'Student'
+                icon='apply-img.png'
+                title =51
         break;
-        case 'V29': itemPart = ''
+        case 'V29': itemPart = 'Living'
                 icon='living-img.png'
-                title =''
+                title = 63
         break;
-        case 'V30': itemPart = ''
+        case 'V30': itemPart = 'Living'
                 icon='living-img.png'
-                title =''
+                title = 65
         break;
-        case 'V31': itemPart = 'CBS Conductor'
+        case 'V31': itemPart = 'Conductor'
                 icon='living-img.png'
-                title =''
+                title = 109
+        break;
+        case 'V32': itemPart = 'CBS'
+                icon='living-img.png'
+                title = 72
         break;
         case 'V34': itemPart = 'Closing Prayer'
-                icon='pray.jpg'
-                title =''
+                icon='praying.jpeg'
+                title =109
         break;
         case 'Q40': itemPart = 'Chairman (Weekend)'
                 icon='profile.png'
-                title =''
+                title = 109
         break;
         case 'V41': itemPart = 'Away Speaker'
                 icon='public-img.png'
-                title =''
+                title = 109
         break;
         case 'V48': itemPart = 'Watchtower Reader'
                 icon='watchtower-img.png'
-                title =''
+                title = 109
         break;
         case 'S58': itemPart = 'Media Player'
                 icon='weekly-img.png'
-                title =''
+                title = 109
         break;
         case 'O58': itemPart = 'Mute/Unmute'
                 icon='weekly-img.png'
-                title =''
+                title = 109
         break;
         default: itemPart = 'Missing Item'
+                title = 109 
         break;
     }
     return {part: itemPart, i: icon, item: title };
