@@ -47,6 +47,7 @@ async function initialize(publisherName){
                         case 'C34' : 
                         case 'C58' : 
                         case 'C40' : 
+                        case 'C48' : 
                         case 'C41' : 9
                         case 'C7' : itemStr = '';
                         break
