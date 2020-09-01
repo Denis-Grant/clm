@@ -48,7 +48,7 @@ async function initialize(publisherName){
                         case 'C58' : 
                         case 'C40' : 
                         case 'C48' : 
-                        case 'C41' : 9
+                        case 'C41' : 
                         case 'C7' : itemStr = '';
                         break
                       
@@ -287,7 +287,7 @@ function meetingPart(item){
                 icon='profile.png'
                 title = 109
         break;
-        case 'V41': itemPart = 'Away Speaker'
+        case 'V41': itemPart = 'Away Talk'
                 icon='public-img.png'
                 title = 109
         break;
