@@ -14,86 +14,138 @@ let myAssignment ='Grant';
 const user = document.querySelector('.fa-user');
 let dataArray;
 let itemStr;
-console.log('>')
-window.addEventListener('scroll',()=>{
-    if (window.pageYOffset > 100) {
-        searchWrap.classList.add('header-offset')
-    } else {
-        searchWrap.classList.remove('header-offset')
-    }      
-})
-async function initialize(publisherName){
+let sheets = []; // initialize sheets array
+
+// window.addEventListener('scroll',()=>{
+//     if (window.pageYOffset > 100) {
+//         searchWrap.classList.add('header-offset')
+//     } else {
+//         searchWrap.classList.remove('header-offset')
+//     }      
+// })
+async function setup(){
+    for (let i = 5; i < 10; i++){ 
+        data = await ( await fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`)).json();
+        // Display week dates
+        sheets.push(data)
+        //  dataArray = Array.of(data);
+        //  let weekStr = data.feed.entry[1].content.$t.split('-')
+        //  let time = new Date (weekStr[0,weekIndex].trim() + ' 2020')
+        //  console.log(time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()) 
+        //  let formattedDate = time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()
+        // main.innerHTML += 
+        //     `<div class="meta-data"><div class="week"><a href='${link+formattedDate}' target='_blank'>${data.feed.entry[1].content.$t}</a></div><div>Week ${weekNum++}</div>`
+            
+
+        // Display items
+        // data.feed.entry.forEach(pub => {
+        //     if (pub.content.$t.includes(publisherName)){                
+        //         dataArray[0].feed.entry.forEach((i)=>{
+        //             if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
+        //                 itemStr =  i.content.$t;
+        //             } 
+        //              item = 'C'+ pub.title.$t.substring(1);
+        //             switch(item){
+        //                 case 'C5' : 
+        //                 case 'C34' : 
+        //                 case 'C58' : 
+        //                 case 'C40' : 
+        //                 case 'C48' : 
+        //                 case 'C41' : 
+        //                 case 'C7' : itemStr = '';
+        //                 break
+                      
+        //                 default:
+        //                     itemStr;
+        //                 break
+        //             }
+        //         })
+                 
+        //         main.innerHTML += 
+        //         `<div class="assignment-wrapper">
+        //             <div class="assignments">
+        //                 <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
+        //                 <p>${meetingPart(pub.title.$t).part}</p>
+        //                 <p>${itemStr}</p>
+        //             </div>
+        //         </div>`    
+        //     }
+        // });
+    }
+    return sheets;
+}
+ function initialize(data, publisherName){
     main.innerHTML = '';
     let weekNum = 1;
     let weekIndex = 0;
     let item;
     let time;
     let link = 'https://wol.jw.org/en/wol/dt/r1/lp-e/';
-    for (let i = 5; i < 10; i++){ 
-        data = await ( await fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`)).json();
+    data.forEach((data)=>{
+         // data = await ( await fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`)).json();
         // Display week dates
-         dataArray = Array.of(data);
-         let weekStr = data.feed.entry[1].content.$t.split('-')
-         let time = new Date (weekStr[0,weekIndex].trim() + ' 2020')
-         console.log(time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()) 
-         let formattedDate = time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()
-        main.innerHTML += 
-            `<div class="meta-data"><div class="week"><a href='${link+formattedDate}' target='_blank'>${data.feed.entry[1].content.$t}</a></div><div>Week ${weekNum++}</div>`
-            
-            // console.log(weekStr[0,weekIndex].trim() + ' 2020')
-            // console.log(Date.getFullYear(weekStr[0,weekIndex].trim() + ' 2020'))
+        dataArray = Array.of(data);
+        let weekStr = data.feed.entry[1].content.$t.split('-')
+        let time = new Date (weekStr[0,weekIndex].trim() + ' 2020')
+        console.log(time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()) 
+        let formattedDate = time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()
+       main.innerHTML += 
+           `<div class="meta-data"><div class="week"><a href='${link+formattedDate}' target='_blank'>${data.feed.entry[1].content.$t}</a></div><div>Week ${weekNum++}</div>`
            
-            // console.log(weekStr[weekIndex++])
-        // Display items
-        data.feed.entry.forEach(pub => {
-            if (pub.content.$t.includes(publisherName)){                
-                dataArray[0].feed.entry.forEach((i)=>{
-                    if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
-                        itemStr =  i.content.$t;
-                    } 
-                     item = 'C'+ pub.title.$t.substring(1);
-                    switch(item){
-                        case 'C5' : 
-                        case 'C34' : 
-                        case 'C58' : 
-                        case 'C40' : 
-                        case 'C48' : 
-                        case 'C41' : 
-                        case 'C7' : itemStr = '';
-                        break
-                      
-                        default:
-                            itemStr;
-                        break
-                    }
-                })
-                 
-                main.innerHTML += 
-                `<div class="assignment-wrapper">
-                    <div class="assignments">
-                        <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
-                        <p>${meetingPart(pub.title.$t).part}</p>
-                        <p>${itemStr}</p>
-                    </div>
-                </div>`    
-            }
-        });
-    }
-    main.innerHTML += `<div class='blank-space'></div>`
-    // main.innerHTML += `<div class='blank-space></div>`
+
+       // Display items
+       data.feed.entry.forEach(pub => {
+           if (pub.content.$t.includes(publisherName)){                
+               dataArray[0].feed.entry.forEach((i)=>{
+                   if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
+                       itemStr =  i.content.$t;
+                   } 
+                    item = 'C'+ pub.title.$t.substring(1);
+                   switch(item){
+                       case 'C5' : 
+                       case 'C34' : 
+                       case 'C58' : 
+                       case 'C40' : 
+                       case 'C48' : 
+                       case 'C41' : 
+                       case 'C7' : itemStr = '';
+                       break
+                     
+                       default:
+                           itemStr;
+                       break
+                   }
+               })
+                
+               main.innerHTML += 
+               `<div class="assignment-wrapper">
+                   <div class="assignments">
+                       <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
+                       <p>${meetingPart(pub.title.$t).part}</p>
+                       <p>${itemStr}</p>
+                   </div>
+               </div>`    
+           }
+       });
+   
+   
+   // main.innerHTML += `<div class='blank-space></div>`
+    })
+    main.innerHTML += `<div class='blank-space'></div>`  
 }
-// initialize();
+setup(); // Start initialization (once only)
+
 searchBtn.addEventListener('click', ()=>{
     searchInput.select();
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
-        initialize(searchInput.value.trim());
+        initialize(sheets,searchInput.value.trim());
     }
     
 });
 
 user.addEventListener('click', ()=>{
     searchInput.value = 'Grant';
-    initialize(searchInput.value.trim());
+    initialize(sheets, searchInput.value.trim());
 
 });
 
@@ -269,6 +321,10 @@ function meetingPart(item){
                 icon='apply-img.png'
                 title =109
         break;
+        case 'V22': itemPart = 'Student'
+                icon='apply-img.png'
+                title =109
+        break;
         case 'V23': itemPart = 'Student'
                 icon='apply-img.png'
                 title =51
@@ -285,7 +341,7 @@ function meetingPart(item){
                 icon='living-img.png'
                 title = 109
         break;
-        case 'V32': itemPart = 'CBS'
+        case 'V32': itemPart = 'CBS Reader'
                 icon='living-img.png'
                 title = 72
         break;
