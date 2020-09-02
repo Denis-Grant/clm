@@ -26,8 +26,11 @@ body {
         padding: 0;
     }
     a {
-        color: $blue;
+        color: #fff;
         text-decoration: none;
+        &:hover {
+            color: #fff;
+        }
     }
     h1 {margin-bottom: 0;}
 }

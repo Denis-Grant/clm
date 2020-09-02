@@ -17,8 +17,12 @@ body ul {
 }
 
 body a {
-  color: #0A2850;
+  color: #fff;
   text-decoration: none;
+}
+
+body a:hover {
+  color: #fff;
 }
 
 body h1 {
