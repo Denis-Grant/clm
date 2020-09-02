@@ -15,6 +15,9 @@ const user = document.querySelector('.fa-user');
 let dataArray;
 let itemStr;
 let sheets = []; // initialize sheets array
+let allNames;
+let names = [];
+let nameList = [];
 
 // window.addEventListener('scroll',()=>{
 //     if (window.pageYOffset > 100) {
@@ -28,52 +31,28 @@ async function setup(){
         data = await ( await fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`)).json();
         // Display week dates
         sheets.push(data)
-        //  dataArray = Array.of(data);
-        //  let weekStr = data.feed.entry[1].content.$t.split('-')
-        //  let time = new Date (weekStr[0,weekIndex].trim() + ' 2020')
-        //  console.log(time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()) 
-        //  let formattedDate = time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()
-        // main.innerHTML += 
-        //     `<div class="meta-data"><div class="week"><a href='${link+formattedDate}' target='_blank'>${data.feed.entry[1].content.$t}</a></div><div>Week ${weekNum++}</div>`
-            
-
-        // Display items
-        // data.feed.entry.forEach(pub => {
-        //     if (pub.content.$t.includes(publisherName)){                
-        //         dataArray[0].feed.entry.forEach((i)=>{
-        //             if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
-        //                 itemStr =  i.content.$t;
-        //             } 
-        //              item = 'C'+ pub.title.$t.substring(1);
-        //             switch(item){
-        //                 case 'C5' : 
-        //                 case 'C34' : 
-        //                 case 'C58' : 
-        //                 case 'C40' : 
-        //                 case 'C48' : 
-        //                 case 'C41' : 
-        //                 case 'C7' : itemStr = '';
-        //                 break
-                      
-        //                 default:
-        //                     itemStr;
-        //                 break
-        //             }
-        //         })
-                 
-        //         main.innerHTML += 
-        //         `<div class="assignment-wrapper">
-        //             <div class="assignments">
-        //                 <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
-        //                 <p>${meetingPart(pub.title.$t).part}</p>
-        //                 <p>${itemStr}</p>
-        //             </div>
-        //         </div>`    
-        //     }
-        // });
     }
     return sheets;
 }
+async function extractNames(){
+         const list = await ( await fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/13/public/full?alt=json`)).json();
+        // Display week dates
+        let tempNames = [];
+        nameList = new Set();
+        names.push(list)
+        names[0].feed.entry.forEach((pub)=>{
+            // Search excludes the headings and Urdu group cols
+            if (pub.title.$t < 'O1' && pub.gs$cell.row != 1 && pub.gs$cell.col != 7  && pub.gs$cell.col != 8) {
+                nameList.add(pub.content.$t);
+            }
+        })
+        nameList.forEach(name => {
+            searchInput.innerHTML += `<option value="${name}">${name}</option>`
+        })
+        
+    return nameList;
+}
+
  function initialize(data, publisherName){
     main.innerHTML = '';
     let weekNum = 1;
@@ -87,7 +66,7 @@ async function setup(){
         dataArray = Array.of(data);
         let weekStr = data.feed.entry[1].content.$t.split('-')
         let time = new Date (weekStr[0,weekIndex].trim() + ' 2020')
-        console.log(time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()) 
+        // console.log(time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()) 
         let formattedDate = time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()
        main.innerHTML += 
            `<div class="meta-data"><div class="week"><a href='${link+formattedDate}' target='_blank'>${data.feed.entry[1].content.$t}</a></div><div>Week ${weekNum++}</div>`
@@ -129,14 +108,13 @@ async function setup(){
        });
    
    
-   // main.innerHTML += `<div class='blank-space></div>`
     })
     main.innerHTML += `<div class='blank-space'></div>`  
 }
-setup(); // Start initialization (once only)
-
+setup(); // API - Start initialization (once only)
+extractNames(); // API - Once only
 searchBtn.addEventListener('click', ()=>{
-    searchInput.select();
+    // searchInput.select();
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
         initialize(sheets,searchInput.value.trim());
     }
@@ -164,111 +142,8 @@ function searchByName(name){
     })
 }
 
-function getWeeks(name){
-    for (let i = 5; i < 10; i++){
-        // Retrieve weeks data
-        fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`).
-        then(resp => resp.json()).
-        then((data) => { 
 
-        weekArr.push({week: data.feed.entry[1].content.$t});      
 
-        });
-    }
-    // original git
-    setTimeout(() => {
-        weekArr.sort((a, b) => a.week.localeCompare(b.week, 'en', { numeric: true }))
-        console.log(weekArr);
-        //----------------
-        main.innerHTML = '';
-        for (let x = 5; x < 10; x++){
-            
-            fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${x}/public/full?alt=json`).
-            then(resp => resp.json()).
-            then((data) => {
-          
-            // main.innerHTML += 
-            // `<div class="meta-data"><div class="week">${weekArr[counter].week}</div><div class="publisher-name">${searchInput.value.trim()}</div></div>`
-            counter++              
-            data.feed.entry.forEach(pub => {
-                if (pub.content.$t.includes(name)){                
-                    
-                    // main.innerHTML += 
-                    // `<div class="assignment-wrapper"><div class="assignments">
-                    // <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
-                    // <p>${meetingPart(pub.title.$t).part}</p>
-                    // <p>“Reflect Jehovah’s View of Life”: (10 min.)</p>
-                    // </div></div>`;
-
-                    rows[x] += `<div class="assignments">
-                    <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
-                    <p>${meetingPart(pub.title.$t).part}</p>
-                    <p>“Reflect Jehovah’s View of Life”: (10 min.)</p>
-                    </div>`;
-                }
-    
-                });
-            
-            });
-        }
-    }, 1000);
-    setTimeout(() => {
-        let x = 5;
-        weekArr.forEach((week)=>{
-           main.innerHTML += 
-            `<div class="meta-data"><div class="week">${week.week}</div><div class="publisher-name">${searchInput.value.trim()}</div></div>` 
-             if (rows[x] !== undefined || rows[x] != '') {
-                main.innerHTML += rows[x];
-                // console.log(rows[x])
-            }
-            x=x+1
-            // rows.forEach((row)=>{
-            //     main.innerHTML += row;
-            // })
-        })
-    }, 2000);
-    // timer above this line
-    
-}
-// function getItems(name){
-//     main.innerHTML = '';
-
-//     for (let i = 5; i < 10; i++){
-        
-//         fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`).
-//         then(resp => resp.json()).
-//         then((data) => {
-//         // console.log(data.feed.title.$t)
-//         // console.log(data.feed.entry[1].content.$t)
-//         // week.textContent = data.feed.entry[1].content.$t;
-//         // publisherName.textContent = searchInput.value.trim();
-//         main.innerHTML += 
-//         `<div class="meta-data"><div class="week">${data.feed.entry[1].content.$t}</div><div class="publisher-name">${searchInput.value.trim()}</div></div>`
-//         weekArr.push({week: data.feed.entry[1].content.$t})
-//         counter++
-//         console.log(counter)
-//         // weekArr[counter] = {week: data.feed.entry[1].content.$t}
-//         data.feed.entry.forEach(pub => {
-//             if (pub.content.$t.includes(name)){                
-                
-//                 main.innerHTML += 
-//                 `<div class="assignment-wrapper"><div class="assignments">
-//                 <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
-//                 <p>${meetingPart(pub.title.$t).part}</p>
-//                 <p>“Reflect Jehovah’s View of Life”: (10 min.)</p>
-//                 </div></div>`;
-//             }
-
-//             });
-          
-
-//         });
-//     }
-//     setTimeout(() => {
-//         weekArr.sort((a, b) => a.week.localeCompare(b.week, 'en', { numeric: true }))
-//         return weekArr
-//     }, 1000);
-// }
 function meetingPart(item){
     let itemPart;
     let icon;
