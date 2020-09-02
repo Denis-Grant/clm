@@ -22,7 +22,6 @@ window.addEventListener('scroll',()=>{
         searchWrap.classList.remove('header-offset')
     }      
 })
-let y = window.pageYOffset;
 async function initialize(publisherName){
     main.innerHTML = '';
     let weekNum = 1;
