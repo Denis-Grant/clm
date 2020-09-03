@@ -74,7 +74,7 @@ async function extractNames(){
 
        // Display items
        data.feed.entry.forEach(pub => {
-           if (pub.content.$t.includes(publisherName)){                
+           if (pub.content.$t === publisherName){                
                dataArray[0].feed.entry.forEach((i)=>{
                    if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
                        itemStr =  i.content.$t;
@@ -113,7 +113,7 @@ async function extractNames(){
 }
 setup(); // API - Start initialization (once only)
 extractNames(); // API - Once only
-searchBtn.addEventListener('click', ()=>{
+searchInput.addEventListener('change', ()=>{
     // searchInput.select();
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
         initialize(sheets,searchInput.value.trim());
@@ -176,7 +176,7 @@ function meetingPart(item){
                 icon='treasures-img.png'
                 title = 'C12'
         break;
-        case 'V13': itemPart = 'Digging for Spiritual Gems'
+        case 'V13': itemPart = 'Gems'
                 icon='treasures-img.png'
                 title = 109
         break;
@@ -224,6 +224,22 @@ function meetingPart(item){
                 icon='praying.jpeg'
                 title =109
         break;
+        case 'Q14': itemPart = 'Student (Urdu)'
+                icon='apply-img.png'
+                title = 109
+        break;
+        case 'Q18': itemPart = 'Urdu'
+                icon='apply-img.png'
+                title = 109
+        break;
+        case 'Q20': itemPart = 'Student (Urdu)'
+                icon='apply-img.png'
+                title = 109
+        break;
+        case 'Q23': itemPart = 'Student (Urdu)'
+                icon='apply-img.png'
+                title = 109
+        break;
         case 'Q40': itemPart = 'Chairman (Weekend)'
                 icon='profile.png'
                 title = 109
@@ -241,6 +257,10 @@ function meetingPart(item){
                 title = 109
         break;
         case 'O58': itemPart = 'Mute/Unmute'
+                icon='weekly-img.png'
+                title = 109
+        break;
+        case 'W58': itemPart = 'Ministry'
                 icon='weekly-img.png'
                 title = 109
         break;
