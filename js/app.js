@@ -148,6 +148,10 @@ function meetingPart(item){
     let itemPart;
     let icon;
     switch(item){
+        case    'V6': itemPart = 'Urdu Counselor';
+                icon = 'weekly-img.png'
+                title =109
+        break;
         case    'A58': itemPart = 'Host';
                 icon = 'weekly-img.png'
                 title =109
