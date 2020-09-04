@@ -122,7 +122,7 @@ searchInput.addEventListener('change', ()=>{
 });
 
 user.addEventListener('click', ()=>{
-    searchInput.value = 'Grant';
+    searchInput.value = 'D Grant';
     initialize(sheets, searchInput.value.trim());
 
 });
