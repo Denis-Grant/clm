@@ -7,6 +7,7 @@ const metaData = document.querySelector('.meta-data');
 const main = document.querySelector('main');
 const searchWrap = document.querySelector('.search-wrap');
 const user = document.querySelector('.fa-user');
+const home = document.querySelector('.fa-home');
 let weekArr = [];
 let rows= [];
 let x;
@@ -20,14 +21,6 @@ let names = [];
 let nameList = [];
 let aka = {}
 
-
-// window.addEventListener('scroll',()=>{
-//     if (window.pageYOffset > 100) {
-//         searchWrap.classList.add('header-offset')
-//     } else {
-//         searchWrap.classList.remove('header-offset')
-//     }      
-// })
 async function setup(){
     for (let i = 5; i < 10; i++){ 
         data = await ( await fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`)).json();
@@ -60,7 +53,11 @@ async function extractNames(){
                 break;
                 case 'T Boland (Jnr)' : aka[name] = 'Thomas Boland Jnr'
                 break;
-                case 'W Daview' : aka[name] = 'Bill Davies'
+                case 'W Davies' : aka[name] = 'Bill Davies'
+                break;
+                case 'R Santiago' : aka[name] = 'Reuben Santiago'
+                break;
+                case 'T Cornwall' : aka[name] = 'Terry Cornwall'
                 break;
             }
         })
@@ -76,19 +73,16 @@ async function extractNames(){
     let time;
     let link = 'https://wol.jw.org/en/wol/dt/r1/lp-e/';
     data.forEach((data)=>{
-         // data = await ( await fetch(`https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/${i}/public/full?alt=json`)).json();
-        // Display week dates
         dataArray = Array.of(data);
         let weekStr = data.feed.entry[1].content.$t.split('-')
         let time = new Date (weekStr[0,weekIndex].trim() + ' 2020')
-        // console.log(time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()) 
         let formattedDate = time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()
        main.innerHTML += 
            `<div class="meta-data"><div class="week"><a href='${link+formattedDate}' target='_blank'>${data.feed.entry[1].content.$t}</a></div><div>Week ${weekNum++}</div>`
 
        // Display items
        data.feed.entry.forEach(pub => {
-
+            console.log('>'+aka[publisherName]+'<')
            if (pub.content.$t === publisherName || pub.content.$t === aka[publisherName]){                
                dataArray[0].feed.entry.forEach((i)=>{
                    if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
@@ -143,8 +137,11 @@ user.addEventListener('click', ()=>{
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
         initialize(sheets,searchInput.value.trim());
     }
-
 });
+
+home.addEventListener('click', ()=>{
+    location.reload();
+})
 
 
 function meetingPart(item){
@@ -196,6 +193,10 @@ function meetingPart(item){
                 title = 109
         break;
         case 'V19': itemPart = 'Student'
+                icon='apply-img.png'
+                title =109
+        break;
+        case 'V20': itemPart = 'Student'
                 icon='apply-img.png'
                 title =109
         break;
