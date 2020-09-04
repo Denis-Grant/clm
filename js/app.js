@@ -18,6 +18,9 @@ let sheets = []; // initialize sheets array
 let allNames;
 let names = [];
 let nameList = [];
+let aka = {}
+
+
 // window.addEventListener('scroll',()=>{
 //     if (window.pageYOffset > 100) {
 //         searchWrap.classList.add('header-offset')
@@ -47,6 +50,19 @@ async function extractNames(){
         })
         nameList.forEach(name => {
             searchInput.innerHTML += `<option value="${name}">${name}</option>`
+            // console.log(name)
+            switch(name) {
+                case 'C Yalley' : aka[name] = 'Christopher Yalley'
+                break;
+                case 'D Grant' : aka[name] = 'Denis Grant'
+                break;
+                case 'H Neal' : aka[name] = 'Hayden Neal'
+                break;
+                case 'T Boland (Jnr)' : aka[name] = 'Thomas Boland Jnr'
+                break;
+                case 'W Daview' : aka[name] = 'Bill Davies'
+                break;
+            }
         })
         
     return nameList;
@@ -72,7 +88,8 @@ async function extractNames(){
 
        // Display items
        data.feed.entry.forEach(pub => {
-           if (pub.content.$t === publisherName){                
+
+           if (pub.content.$t === publisherName || pub.content.$t === aka[publisherName]){                
                dataArray[0].feed.entry.forEach((i)=>{
                    if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
                        itemStr =  i.content.$t;
@@ -93,15 +110,17 @@ async function extractNames(){
                        break
                    }
                })
-                
-               main.innerHTML += 
-               `<div class="assignment-wrapper">
-                   <div class="assignments">
-                       <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
-                       <p>${meetingPart(pub.title.$t).part}</p>
-                       <p>${itemStr}</p>
-                   </div>
-               </div>`    
+               if (meetingPart(pub.title.$t).part != 'Urdu Counselor'){
+                    main.innerHTML += 
+                `<div class="assignment-wrapper">
+                    <div class="assignments">
+                        <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
+                        <p>${meetingPart(pub.title.$t).part}</p>
+                        <p>${itemStr}</p>
+                    </div>
+                </div>`    
+               }
+               
            }
        });
    
