@@ -6,19 +6,18 @@ const publisherName = document.querySelector('.publisher-name');
 const metaData = document.querySelector('.meta-data');
 const main = document.querySelector('main');
 const searchWrap = document.querySelector('.search-wrap');
+const user = document.querySelector('.fa-user');
 let weekArr = [];
 let rows= [];
 let x;
 let counter = 0;
 let myAssignment ='Grant';
-const user = document.querySelector('.fa-user');
 let dataArray;
 let itemStr;
 let sheets = []; // initialize sheets array
 let allNames;
 let names = [];
 let nameList = [];
-
 // window.addEventListener('scroll',()=>{
 //     if (window.pageYOffset > 100) {
 //         searchWrap.classList.add('header-offset')
@@ -70,7 +69,6 @@ async function extractNames(){
         let formattedDate = time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate()
        main.innerHTML += 
            `<div class="meta-data"><div class="week"><a href='${link+formattedDate}' target='_blank'>${data.feed.entry[1].content.$t}</a></div><div>Week ${weekNum++}</div>`
-           
 
        // Display items
        data.feed.entry.forEach(pub => {
@@ -113,7 +111,7 @@ async function extractNames(){
 }
 setup(); // API - Start initialization (once only)
 extractNames(); // API - Once only
-searchInput.addEventListener('change', ()=>{
+searchInput.addEventListener('input', ()=>{
     // searchInput.select();
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
         initialize(sheets,searchInput.value.trim());
@@ -123,25 +121,11 @@ searchInput.addEventListener('change', ()=>{
 
 user.addEventListener('click', ()=>{
     searchInput.value = 'D Grant';
-    initialize(sheets, searchInput.value.trim());
+    if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
+        initialize(sheets,searchInput.value.trim());
+    }
 
 });
-
-
-function toggleMenu(){
-    menu.getAttribute('style') === null ? menu.style.transform = 'translateX(0)' : menu.removeAttribute('style');
-}
-function searchByName(name){
-    fetch('https://spreadsheets.google.com/feeds/cells/1bIa031vPD-sAXGf8QqKRtKfAC5XqbfruyM2zksQzdAc/8/public/full?alt=json').then(resp => resp.json()).then((data) => {
-
-    data.feed.entry.forEach((pub)=>{
-        if (pub.title.$t.length < 4 && !pub.content.$t.includes('Chair') && pub.title.$t.includes('B')){
-            console.log(pub.content.$t);
-        }
-        })
-    })
-}
-
 
 
 function meetingPart(item){
