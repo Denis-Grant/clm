@@ -72,7 +72,10 @@ async function extractNames(){
     let item;
     let time;
     let link = 'https://wol.jw.org/en/wol/dt/r1/lp-e/';
+    let tempItem;
+    let chairman
     data.forEach((data)=>{
+        chairman = false;
         dataArray = Array.of(data);
         let weekStr = data.feed.entry[1].content.$t.split('-')
         let time = new Date (weekStr[0,weekIndex].trim() + ' 2020')
@@ -82,39 +85,58 @@ async function extractNames(){
 
        // Display items
        data.feed.entry.forEach(pub => {
-            console.log('>'+aka[publisherName]+'<')
-           if (pub.content.$t === publisherName || pub.content.$t === aka[publisherName]){                
+           if (pub.content.$t.includes(publisherName)  || pub.content.$t.includes(aka[publisherName] || pub.content.$t.trim() === publisherName)){     
+                // console.log(pub.content.$t+'<')
                dataArray[0].feed.entry.forEach((i)=>{
+
+                if (i.title.$t === 'C19'){ tempItem = i.content.$t;}
+                if (i.title.$t === 'C21'){ tempItem = i.content.$t;}
+                if (i.title.$t === 'Q19'){ tempItem = i.content.$t;}
+                
                    if (i.title.$t.includes('C'+ pub.title.$t.substring(1))){
+                        //    console.log(i.title.$t.includes('C'+ pub.title.$t.substring(1)))
+                          
                        itemStr =  i.content.$t;
-                   } 
-                    item = 'C'+ pub.title.$t.substring(1);
+                //        console.log(itemStr)
+                //        debugger;
+                   } else 
+                   if (pub.title.$t === 'V20') {itemStr = tempItem + ' *Assistant' };
+                   if (pub.title.$t === 'V22') {itemStr = tempItem + ' *Assistant'};
+                   if (pub.title.$t === 'Q20') {itemStr = tempItem + ' *Assistant'};
+                  
+                   item = 'C'+ pub.title.$t.substring(1);
                    switch(item){
                        case 'C5' : 
+                       case 'C32' :
                        case 'C34' : 
                        case 'C58' : 
                        case 'C40' : 
                        case 'C48' : 
                        case 'C41' : 
                        case 'C7' : itemStr = '';
-                       break
-                     
+                        break
                        default:
                            itemStr;
                        break
                    }
                })
-               if (meetingPart(pub.title.$t).part != 'Urdu Counselor'){
-                    main.innerHTML += 
+        //        console.log(pub.title.$t)
+               if (pub.title.$t != 'O54' && meetingPart(pub.title.$t).part != 'Urdu Counselor'){
+                       console.log(chairman);
+                //        debugger
+                     if (chairman != true && pub.title.$t != 'V18') {
+
+                      
+                main.innerHTML += 
                 `<div class="assignment-wrapper">
                     <div class="assignments">
                         <img src="img/${meetingPart(pub.title.$t).i}" alt="IMAGE">
                         <p>${meetingPart(pub.title.$t).part}</p>
                         <p>${itemStr}</p>
                     </div>
-                </div>`    
+                </div>` 
+                }    
                }
-               
            }
        });
    
@@ -124,6 +146,9 @@ async function extractNames(){
 }
 setup(); // API - Start initialization (once only)
 extractNames(); // API - Once only
+console.log(window.localStorage.getItem('user', 'D Grant')
+)
+
 searchInput.addEventListener('input', ()=>{
     // searchInput.select();
     if (searchInput.value.length != 0 || searchInput.value.trim() != ''){
@@ -170,7 +195,7 @@ function meetingPart(item){
         break;
         case 'V5': itemPart = 'Chairman'
                 icon = 'profile.png'
-                title = 109
+                chairman = true;
         break;
         case 'V7': itemPart = 'Opening Prayer'
                 icon='praying.jpeg'
@@ -272,11 +297,15 @@ function meetingPart(item){
                 icon='weekly-img.png'
                 title = 109
         break;
-        default: itemPart = 'Missing Item'
+        case 'O54': itemPart = 'WkEnd Ministry'
+                // icon='weekly-img.png'
+                // title = 109
+        break;
+        default: itemPart = 'Missing Item';
                 title = 109 
         break;
     }
-    return {part: itemPart, i: icon, item: title };
+    return {part: itemPart, i: icon};
 }
 
 //test
