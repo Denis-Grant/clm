@@ -20,6 +20,7 @@ let allNames;
 let names = [];
 let nameList = [];
 let aka = {}
+const workBook = [];
 
 async function setup(){
     for (let i = 5; i < 10; i++){ 
@@ -165,7 +166,7 @@ user.addEventListener('click', ()=>{
 });
 
 home.addEventListener('click', ()=>{
-    location.reload();
+//     location.reload();
 })
 
 
